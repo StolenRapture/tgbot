@@ -1,24 +1,25 @@
 package org.yourbro.bot;
 
-import org.telegram.telegrambots.api.methods.send.SendMessage;
-import org.telegram.telegrambots.api.objects.Message;
 import org.telegram.telegrambots.api.objects.Update;
-import org.telegram.telegrambots.bots.TelegramLongPollingBot;
-import org.telegram.telegrambots.exceptions.TelegramApiException;
 
-import java.util.Properties;
+public class YourBot extends AbstractBot{
 
-public class YourBot extends TelegramLongPollingBot{
+    public YourBot(final BotModel bot) {
+        super(bot);
+    }
 
+    @Override
     public void onUpdateReceived(final Update update) {
-
+        //
     }
 
+    @Override
     public String getBotUsername() {
-        return null;
+        return super.getBotUsername();
     }
 
+    @Override
     public String getBotToken() {
-        return null;
+        return super.getBotToken();
     }
 }
