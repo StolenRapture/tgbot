@@ -30,7 +30,7 @@ public class Application {
         final FileLoaderService<Properties> fileLoaderService = new PropertyFileLoaderService();
         final Properties botCoreParameters = fileLoaderService.loadFile(PropertiesPath.CORE_BOT);
         final BotModel bot = new BotModel();
-        Populator populator = new BotModelPopulator();
+        final Populator<Properties, BotModel> populator = new BotModelPopulator();
         populator.populate(botCoreParameters, bot);
 
         try {
