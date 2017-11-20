@@ -28,7 +28,6 @@ public final class YourBot extends AbstractBot {
         final Message receivedMessage = update.getMessage();
         MessageType messageType = botService.defineMessageType(receivedMessage);
 
-        System.out.println(receivedMessage);
 
     }
 
