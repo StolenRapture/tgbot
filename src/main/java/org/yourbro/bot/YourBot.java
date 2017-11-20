@@ -1,5 +1,6 @@
 package org.yourbro.bot;
 
+import org.apache.log4j.Logger;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Message;
 import org.telegram.telegrambots.api.objects.Update;
@@ -9,6 +10,7 @@ import org.telegram.telegrambots.exceptions.TelegramApiException;
  *
  */
 public class YourBot extends AbstractBot {
+    private static Logger LOG = Logger.getLogger(YourBot.class);
 
     public YourBot(final BotModel bot) {
         super(bot);
@@ -16,7 +18,6 @@ public class YourBot extends AbstractBot {
 
     @Override
     public void onUpdateReceived(final Update update) {
-        
 
     }
 
