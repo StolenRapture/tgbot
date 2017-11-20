@@ -1,8 +1,22 @@
 package org.yourbro.bot;
 
+/**
+ * This class represents the bot entity.
+ */
 public class BotModel {
+    /**
+     * Bot's name to be displayed.
+     */
     private String name;
+
+    /**
+     * Bot's username. Must be unique.
+     */
     private String userName;
+
+    /**
+     * Bot's token.
+     */
     private String token;
 
     public String getName() {

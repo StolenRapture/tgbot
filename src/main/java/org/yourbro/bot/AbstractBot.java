@@ -1,12 +1,19 @@
 package org.yourbro.bot;
 
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.yourbro.services.botservice.BotService;
 
+/**
+ *
+ */
 public abstract class AbstractBot extends TelegramLongPollingBot {
-    private BotModel bot;
+    protected BotModel bot;
 
-    AbstractBot(final BotModel bot) {
+    protected BotService botService;
+
+    AbstractBot(final BotModel bot, final BotService botService) {
         this.bot = bot;
+        this.botService = botService;
     }
 
     @Override
