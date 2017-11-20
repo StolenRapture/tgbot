@@ -1,5 +1,8 @@
 package org.yourbro.bot;
 
+/**
+ * This class holds constants vars of the {@link YourBot}
+ */
 public final class BotConstants {
     private BotConstants() {
     }
