@@ -1,5 +1,8 @@
 package org.yourbro;
 
+import org.springframework.beans.factory.annotation.Required;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.TelegramBotsApi;
 import org.telegram.telegrambots.exceptions.TelegramApiRequestException;
@@ -10,15 +13,18 @@ import org.yourbro.constants.PropertiesPath;
 import org.yourbro.populators.Populator;
 import org.yourbro.populators.impl.BotModelPopulator;
 import org.yourbro.services.botservice.BotService;
-import org.yourbro.services.botservice.YourBotService;
 import org.yourbro.services.fileloader.FileLoaderService;
-import org.yourbro.services.fileloader.impl.PropertyFileLoaderService;
 
 import java.io.IOException;
 import java.util.Properties;
 
 
-public class Application {
+public final class Application {
+    private static final String SPRING_CONFIG = "spring.xml";
+
+    private BotService botService;
+    private FileLoaderService<Properties> fileLoaderService;
+
     private Application() {
     }
 
@@ -28,17 +34,20 @@ public class Application {
      * @param args input arguments
      */
     public static void main(String[] args) throws IOException {
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext(SPRING_CONFIG);
+        Application application = applicationContext.
+                getBean(Application.class);
+
         ApiContextInitializer.init();
 
-        final BotService botService = new YourBotService();
-        final FileLoaderService<Properties> fileLoaderService = new PropertyFileLoaderService();
-        final Properties botCoreParameters = fileLoaderService.loadFile(PropertiesPath.CORE_BOT);
+        final Properties botInitParameters = application.
+                getFileLoaderService().loadFile(PropertiesPath.CORE_BOT);
         final BotModel bot = new BotModel();
         final Populator<Properties, BotModel> populator = new BotModelPopulator();
-        populator.populate(botCoreParameters, bot);
+        populator.populate(botInitParameters, bot);
 
         try {
-            registerBot(new YourBot(bot, botService));
+            registerBot(new YourBot(bot, application.getBotService()));
         } catch (TelegramApiRequestException e) {
             e.printStackTrace();
         }
@@ -47,5 +56,23 @@ public class Application {
     private static void registerBot(final AbstractBot bot) throws TelegramApiRequestException {
         final TelegramBotsApi botsApi = new TelegramBotsApi();
         botsApi.registerBot(bot);
+    }
+
+    public FileLoaderService<Properties> getFileLoaderService() {
+        return fileLoaderService;
+    }
+
+    @Required
+    public void setFileLoaderService(FileLoaderService<Properties> fileLoaderService) {
+        this.fileLoaderService = fileLoaderService;
+    }
+
+    public BotService getBotService() {
+        return botService;
+    }
+
+    @Required
+    public void setBotService(BotService botService) {
+        this.botService = botService;
     }
 }

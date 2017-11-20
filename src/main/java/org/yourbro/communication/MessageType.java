@@ -4,5 +4,5 @@ public enum MessageType {
     COMMAND,
     DIALOG,
     ABUSE,
-    OTHER
+    UNRECOGNIZED
 }

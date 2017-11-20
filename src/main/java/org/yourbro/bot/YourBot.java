@@ -2,6 +2,8 @@ package org.yourbro.bot;
 
 import org.apache.log4j.Logger;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
+import org.telegram.telegrambots.api.methods.send.SendPhoto;
+import org.telegram.telegrambots.api.objects.Document;
 import org.telegram.telegrambots.api.objects.Message;
 import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
@@ -25,6 +27,8 @@ public final class YourBot extends AbstractBot {
     public void onUpdateReceived(final Update update) {
         final Message receivedMessage = update.getMessage();
         MessageType messageType = botService.defineMessageType(receivedMessage);
+
+        System.out.println(receivedMessage);
 
     }
 
